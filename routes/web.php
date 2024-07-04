@@ -28,6 +28,7 @@ Route::middleware('auth', 'role:writer')->group(function () {
 });
 
 Route::get('/user/product', [UserController::class, 'index'])->middleware(['auth', 'role:user'])->name('user.product.index');
+Route::post('user/product/download-excel', [UserController::class, 'exportExcel'])->middleware(['auth', 'role:user'])->name('user.product.download-excel');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

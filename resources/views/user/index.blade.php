@@ -8,6 +8,10 @@
                   <div class="flex flex-row items-center justify-between space-x-4 ">
                      <h1 class="m-1 text-[50px] font-bold">PRODUCTS LIST</h1>
                      
+                     <form action="{{ route('user.product.download-excel') }}" method="POST" target="__blank">
+                        @csrf
+                        <button class=" px-4 py-2 border rounded bg-blue-500 text-white">Export Excel</button>
+                     </form>
                   </div>
                </div>
 
