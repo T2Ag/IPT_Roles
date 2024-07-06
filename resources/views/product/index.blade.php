@@ -7,12 +7,22 @@
                   
                   <div class="flex flex-row items-center justify-between space-x-4 ">
                      <h1 class="m-1 text-[50px] font-bold">PRODUCTS LIST</h1>
-                     <!-- Button trigger modal -->
+                        
+                     <div class="flex">
                         @can('create product')
-                           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                           <!-- Button trigger modal -->
+                           <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                               Add Product
                            </button>
                         @endcan   
+                        @can('export product')
+                           <form action="{{ route('product.download-excel') }}" method="POST" target="_blank">
+                              @csrf
+                              <button type="submit" class="btn btn-primary text-white">Export Excel</button>
+                           </form>
+                        @endcan  
+                     </div>
+
                   </div>
 
                   <!-- Modal -->

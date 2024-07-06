@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsDataExport;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -49,5 +51,11 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
+    }
+
+    public function exportExcel()
+    {
+        abort_if(Gate::denies('export product'), 403);
+        return Excel::download( new ProductsDataExport, 'products-data.xlsx');
     }
 }

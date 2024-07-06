@@ -18,6 +18,7 @@ Route::get('/admin', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+    Route::post('/product/export-excel', [ProductController::class, 'exportExcel'])->name('product.download-excel');
     Route::post('/product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
