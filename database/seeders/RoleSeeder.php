@@ -18,12 +18,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit product']);
         Permission::create(['name' => 'delete product']);
         Permission::create(['name' => 'export product']);
+        Permission::create(['name' => 'visit logs']);
 
         $role1 = Role::create(['name' => 'admin']);
         $role1->givePermissionTo('create product');
         $role1->givePermissionTo('edit product');
         $role1->givePermissionTo('delete product');
         $role1->givePermissionTo('export product');
+        $role1->givePermissionTo('visit logs');
 
         $role2 = Role::create(['name' => 'writer']);
         $role2->givePermissionTo('edit product');

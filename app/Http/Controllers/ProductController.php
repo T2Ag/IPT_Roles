@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLog;
 use App\Exports\ProductsDataExport;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -25,7 +26,10 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
         ]);
 
-        Product::create($validatedData);
+        $product = Product::create($validatedData);
+
+        $log_entry = 'Added a new product ' . $product->name . ' with the ID# of ' . $product->id;
+        event(new UserLog($log_entry));
 
         return redirect()->route('product.index')->with('success', 'Product created successfully.');
     }
@@ -41,6 +45,9 @@ class ProductController extends Controller
 
         $product->update($validatedData);
 
+        $log_entry = 'Updated the product ' . $product->name . ' with the ID# of ' . $product->id;
+        event(new UserLog($log_entry));
+
         return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
 
@@ -50,6 +57,9 @@ class ProductController extends Controller
 
         $product->delete();
 
+        $log_entry = 'Deleted the product ' . $product->name . ' with the ID# of ' . $product->id;
+        event(new UserLog($log_entry));
+
         return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
     }
 
@@ -57,5 +67,12 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('export product'), 403);
         return Excel::download( new ProductsDataExport, 'products-data.xlsx');
+    }
+
+    public function logs()
+    {
+        abort_if(Gate::denies('visit logs'), 403);
+        $logs = auth()->user()->logs;
+        return view('product.log', compact('logs'));
     }
 }
