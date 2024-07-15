@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\UserLog;
 use App\Exports\ProductsDataExport;
+use App\Models\Log;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -72,7 +73,7 @@ class ProductController extends Controller
     public function logs()
     {
         abort_if(Gate::denies('visit logs'), 403);
-        $logs = auth()->user()->logs;
+        $logs = Log::all();
         return view('product.log', compact('logs'));
     }
 }

@@ -20,13 +20,15 @@
                               <tr>
                                  <th>Timestamp</th>
                                  <th>Log Entry</th>
+                                 <th>User</th>
                               </tr>
                            </thead>
                            <tbody>
                               @foreach ($logs as $log)
                                  <tr>
-                                    <td>{{ $log->created_at }}</td>
-                                    <td>{{ $log->log_entry }}</td>
+                                    <td>{{$log->created_at }}</td>
+                                    <td>{{$log->log_entry }}</td>
+                                    <td>{{$log->user->name}}</td>
                                  </tr>
                               @endforeach
                            </tbody>
