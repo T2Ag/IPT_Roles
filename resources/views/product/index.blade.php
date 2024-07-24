@@ -74,6 +74,7 @@
                                  <th>Name</th>
                                  <th>Description</th>
                                  <th>Price</th>
+                                 <th>Pay</th>
                                  <th class="text-center">...</th>
 
                               </tr>
@@ -85,7 +86,13 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->description }}</td>
                                     <td>{{ $product->price }}</td>
-                                    
+                                    <td>
+                                       <form action="" method="POST">
+                                          @csrf
+                                          <input type="hidden" name="price" value="{{ $product->price }}">
+                                          <button type="submit">Pay with Stripe</button>
+                                       </form>
+                                    </td>
                                     <td>
                                        
                                        <div class="flex justify-center">

@@ -25,6 +25,10 @@
                         {{ __('Logs') }}
                     </x-nav-link>
                     @endcan
+
+                    <x-nav-link :href="route('product.pay')" :active="request()->routeIs('product.pay')">
+                        {{ __('Pay') }}
+                    </x-nav-link>
                 </div>
             </div>
 
